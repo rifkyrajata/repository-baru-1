@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================================================
+           RESET & GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: #f5f4f1;
+            color: #242424;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        :root {
+            --background: #f5f4f1;
+            --white: #ffffff;
+            --dark: #242424;
+            --gray: #6b6b6b;
+            --light-gray: #e2e0db;
+            --blue-gray: #667085;
+            --blue-dark: #4f5d73;
+            --taupe: #a69f91;
+            --soft-taupe: #eae8e3;
+            --container: 1180px;
+        }
+
+        .container {
+            width: min(90%, var(--container));
+            margin: auto;
+        }
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(245, 244, 241, 0.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .navbar {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: "Manrope", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--gray);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--dark);
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--blue-gray);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 130px 0 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: #e7e8eb;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.45;
+            top: 15%;
+            right: -150px;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .eyebrow {
+            color: var(--blue-gray);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            max-width: 700px;
+        }
+
+        .hero h1 span {
+            color: var(--blue-dark);
+        }
+
+        .hero-description {
+            max-width: 570px;
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 22px;
+            border-radius: 5px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--dark);
+            color: white;
+            border: 1px solid var(--dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid #c9c7c2;
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           PROFILE PHOTO FRAME
+        ===================================================== */
+
+        .hero-photo-wrapper {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-decoration {
+            position: absolute;
+            width: 330px;
+            height: 420px;
+            border: 1px solid var(--taupe);
+            top: 20px;
+            right: 30px;
+            z-index: 0;
+        }
+
+        .photo-frame {
+            position: relative;
+            z-index: 1;
+            width: min(100%, 350px);
+            aspect-ratio: 4 / 5;
+            padding: 10px;
+            background: var(--white);
+            border: 1px solid #d8d5cf;
+            box-shadow: 0 25px 60px rgba(40, 40, 40, 0.12);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: var(--soft-taupe);
+        }
+
+        .photo-label {
+            position: absolute;
+            left: -25px;
+            bottom: 25px;
+            background: var(--dark);
+            color: white;
+            padding: 9px 15px;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* =====================================================
+           SECTION
+        ===================================================== */
+
+        section {
+            padding: 110px 0;
+        }
+
+        .section-heading {
+            max-width: 650px;
+            margin-bottom: 55px;
+        }
+
+        .section-number {
+            color: var(--blue-gray);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: var(--gray);
+        }
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        .about {
+            background: #eeece7;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-image {
+            aspect-ratio: 4 / 5;
+            background: var(--soft-taupe);
+            border: 1px solid #d7d4ce;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 28px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-top: 1px solid #d3d0ca;
+        }
+
+        .info-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #d3d0ca;
+        }
+
+        .info-item:nth-child(odd) {
+            margin-right: 25px;
+        }
+
+        .info-label {
+            display: block;
+            color: var(--gray);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           SKILLS
+        ===================================================== */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid var(--light-gray);
+            padding: 30px 25px;
+            min-height: 190px;
+            transition: 0.35s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-7px);
+            border-color: var(--taupe);
+            box-shadow: 0 15px 35px rgba(40, 40, 40, 0.08);
+        }
+
+        .skill-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--soft-taupe);
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+
+        .skill-card h3 {
+            font-family: "Manrope", sans-serif;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .skill-card p {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* =====================================================
+           JOURNEY
+        ===================================================== */
+
+        .journey {
+            background: #eeece7;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 90px;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: #ccc9c2;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 45px;
+            position: relative;
+            padding-bottom: 45px;
+        }
+
+        .timeline-year {
+            color: var(--blue-dark);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .timeline-content {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .timeline-content::before {
+            content: "";
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--blue-gray);
+            left: -49px;
+            top: 8px;
+            border: 3px solid #eeece7;
+            box-sizing: content-box;
+        }
+
+        .timeline-content h3 {
+            font-family: "Manrope", sans-serif;
+            margin-bottom: 7px;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* =====================================================
+           PROJECTS
+        ===================================================== */
+
+        .projects {
+            background: var(--background);
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 30px;
+            align-items: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--light-gray);
+            transition: 0.3s;
+        }
+
+        .project-item:last-child {
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .project-item:hover {
+            padding-left: 15px;
+            padding-right: 15px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .project-number {
+            color: var(--taupe);
+            font-family: "Manrope", sans-serif;
+            font-weight: 700;
+        }
+
+        .project-info h3 {
+            font-family: "Manrope", sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .project-info p {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .project-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--blue-dark);
+        }
+
+        /* =====================================================
+           ACTIVITIES
+        ===================================================== */
+
+        .activities {
+            background: #eeece7;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .activity-card {
+            background: white;
+            padding: 35px;
+            border: 1px solid var(--light-gray);
+            transition: 0.3s;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .activity-card span {
+            color: var(--blue-gray);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .activity-card h3 {
+            font-family: "Manrope", sans-serif;
+            margin: 12px 0 8px;
+        }
+
+        .activity-card p {
+            color: var(--gray);
+            font-size: 0.87rem;
+        }
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact-content .section-description {
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .contact-link {
+            border: 1px solid #d0cdc6;
+            background: white;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .contact-link:hover {
+            background: var(--dark);
+            color: white;
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            border-top: 1px solid var(--light-gray);
+            padding: 25px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-content p {
+            color: var(--gray);
+            font-size: 0.78rem;
+        }
+
+        /* =====================================================
+           BACK TO TOP
+        ===================================================== */
+
+        .back-top {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            width: 43px;
+            height: 43px;
+            border: none;
+            background: var(--dark);
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: 0.3s;
+            z-index: 500;
+        }
+
+        .back-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           RESPONSIVE TABLET
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-photo-wrapper {
+                order: -1;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-image {
+                max-width: 350px;
+            }
+
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =====================================================
+           RESPONSIVE MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: 70px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(245, 244, 241, 0.97);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                gap: 0;
+                padding: 10px 5%;
+                border-bottom: 1px solid var(--light-gray);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: 0.3s;
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 14px 0;
+                border-bottom: 1px solid #e6e4df;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: -2px;
+            }
+
+            .photo-frame {
+                width: 290px;
+            }
+
+            .photo-decoration {
+                width: 275px;
+                height: 365px;
+                right: calc(50% - 155px);
+            }
+
+            .photo-label {
+                left: -12px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item:nth-child(odd) {
+                margin-right: 0;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 5px;
+                padding-left: 25px;
+            }
+
+            .timeline-content {
+                padding-left: 0;
+            }
+
+            .timeline-content::before {
+                left: -30px;
+            }
+
+            .project-item {
+                grid-template-columns: 45px 1fr;
+                gap: 15px;
+            }
+
+            .project-link {
+                grid-column: 2;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header id="header">
+
+        <div class="container navbar">
+
+            <a href="#home" class="logo">
+                YOUR NAME
+            </a>
+
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container hero-content">
+
+                <div class="hero-text reveal">
+
+                    <div class="eyebrow">
+                        Personal Portfolio
+                    </div>
+
+                    <h1>
+                        Hello, I'm
+                        <span>Your Name.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Saya adalah seorang pelajar yang memiliki ketertarikan
+                        pada kreativitas, teknologi, organisasi, komunikasi,
+                        dan pengembangan diri.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#about" class="btn btn-primary">
+                            Explore Profile
+                        </a>
+
+                        <a href="#contact" class="btn btn-outline">
+                            Contact Me
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOTO PROFIL -->
+
+                <div class="hero-photo-wrapper reveal">
+
+                    <div class="photo-decoration"></div>
+
+                    <div class="photo-frame">
+
+                        <!-- Ganti assets/profile.jpg dengan foto kamu -->
+                        <img
+                            src="assets/profile.jpg"
+                            alt="Foto Profil"
+                        >
+
+                    </div>
+
+                    <div class="photo-label">
+                        Profile
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+        <section class="about" id="about">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        01 — ABOUT
+                    </div>
+
+                    <h2 class="section-title">
+                        A little introduction
+                        about myself.
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="about-image reveal">
+
+                        <img
+                            src="assets/profile.jpg"
+                            alt="Foto Profil"
+                        >
+
+                    </div>
+
+
+                    <div class="about-text reveal">
+
+                        <p>
+                            Saya adalah seorang pelajar yang senang mempelajari
+                            berbagai hal baru. Saya memiliki ketertarikan dalam
+                            bidang kreativitas, teknologi, komunikasi, organisasi,
+                            dan pengembangan diri.
+                        </p>
+
+                        <p>
+                            Saya percaya bahwa pengalaman dan proses belajar
+                            merupakan bagian penting dalam membangun kemampuan
+                            serta mempersiapkan diri untuk masa depan.
+                        </p>
+
+
+                        <div class="info-grid">
+
+                            <div class="info-item">
+                                <span class="info-label">
+                                    Education
+                                </span>
+
+                                <span class="info-value">
+                                    Your School
+                                </span>
+                            </div>
+
+
+                            <div class="info-item">
+                                <span class="info-label">
+                                    Location
+                                </span>
+
+                                <span class="info-value">
+                                    Indonesia
+                                </span>
+                            </div>
+
+
+                            <div class="info-item">
+                                <span class="info-label">
+                                    Interest
+                                </span>
+
+                                <span class="info-value">
+                                    Design & Technology
+                                </span>
+                            </div>
+
+
+                            <div class="info-item">
+                                <span class="info-label">
+                                    Focus
+                                </span>
+
+                                <span class="info-value">
+                                    Creativity & Growth
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
+
+        <section id="skills">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        02 — SKILLS
+                    </div>
+
+                    <h2 class="section-title">
+                        Things I can do.
+                    </h2>
+
+                    <p class="section-description">
+                        Beberapa kemampuan yang saya kembangkan melalui
+                        pembelajaran, pengalaman, dan berbagai kegiatan.
+                    </p>
+
+                </div>
+
+
+                <div class="skills-grid">
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            ✦
+                        </div>
+
+                        <h3>
+                            Creative Design
+                        </h3>
+
+                        <p>
+                            Membuat desain sederhana untuk berbagai kebutuhan
+                            visual dan presentasi.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            ◇
+                        </div>
+
+                        <h3>
+                            Photo & Video
+                        </h3>
+
+                        <p>
+                            Mengedit foto dan video serta mengembangkan
+                            visual untuk berbagai project.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            Communication
+                        </h3>
+
+                        <p>
+                            Mampu berkomunikasi, bersosialisasi,
+                            dan menyampaikan ide dengan baik.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            /
+                        </div>
+
+                        <h3>
+                            Teamwork
+                        </h3>
+
+                        <p>
+                            Mampu bekerja sama dan berkontribusi
+                            dalam sebuah tim.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             JOURNEY
+        ================================================== -->
+
+        <section class="journey" id="journey">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        03 — JOURNEY
+                    </div>
+
+                    <h2 class="section-title">
+                        My journey so far.
+                    </h2>
+
+                </div>
+
+
+                <div class="timeline">
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-year">
+                            2024
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <h3>
+                                School
+                            </h3>
+
+                            <p>
+                                Memulai dan mengembangkan perjalanan
+                                pendidikan serta menemukan berbagai
+                                minat baru.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-year">
+                            2025
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <h3>
+                                Organization
+                            </h3>
+
+                            <p>
+                                Mulai terlibat dalam berbagai kegiatan
+                                organisasi dan belajar bekerja dalam tim.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-year">
+                            2026
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <h3>
+                                Creative Projects
+                            </h3>
+
+                            <p>
+                                Mengembangkan berbagai project kreatif
+                                dan meningkatkan kemampuan dalam teknologi
+                                serta komunikasi.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROJECTS
+        ================================================== -->
+
+        <section class="projects" id="projects">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        04 — PROJECTS
+                    </div>
+
+                    <h2 class="section-title">
+                        Selected projects.
+                    </h2>
+
+                    <p class="section-description">
+                        Beberapa karya atau project yang pernah saya kerjakan.
+                    </p>
+
+                </div>
+
+
+                <div class="project-list">
+
+                    <div class="project-item reveal">
+
+                        <div class="project-number">
+                            01
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Personal Website
+                            </h3>
+
+                            <p>
+                                HTML • CSS • JavaScript
+                            </p>
+
+                        </div>
+
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+
+                    </div>
+
+
+                    <div class="project-item reveal">
+
+                        <div class="project-number">
+                            02
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Creative Design
+                            </h3>
+
+                            <p>
+                                Graphic Design • Visual
+                            </p>
+
+                        </div>
+
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+
+                    </div>
+
+
+                    <div class="project-item reveal">
+
+                        <div class="project-number">
+                            03
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                School Project
+                            </h3>
+
+                            <p>
+                                Documentation • Presentation
+                            </p>
+
+                        </div>
+
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ACTIVITIES
+        ================================================== -->
+
+        <section class="activities" id="activities">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        05 — ACTIVITIES
+                    </div>
+
+                    <h2 class="section-title">
+                        Beyond the classroom.
+                    </h2>
+
+                </div>
+
+
+                <div class="activity-grid">
+
+                    <div class="activity-card reveal">
+
+                        <span>
+                            Organization
+                        </span>
+
+                        <h3>
+                            Organizational Experience
+                        </h3>
+
+                        <p>
+                            Pengalaman dalam bekerja sama, berkomunikasi,
+                            dan menjalankan tanggung jawab dalam organisasi.
+                        </p>
+
+                    </div>
+
+
+                    <div class="activity-card reveal">
+
+                        <span>
+                            Creative
+                        </span>
+
+                        <h3>
+                            Creative Activities
+                        </h3>
+
+                        <p>
+                            Mengeksplorasi berbagai kegiatan kreatif
+                            seperti desain, editing, dan visual.
+                        </p>
+
+                    </div>
+
+
+                    <div class="activity-card reveal">
+
+                        <span>
+                            Learning
+                        </span>
+
+                        <h3>
+                            Continuous Learning
+                        </h3>
+
+                        <p>
+                            Terus mempelajari kemampuan baru untuk
+                            meningkatkan kualitas diri.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
+
+        <section class="contact" id="contact">
+
+            <div class="container">
+
+                <div class="contact-content reveal">
+
+                    <div class="section-number">
+                        06 — CONTACT
+                    </div>
+
+                    <h2 class="section-title">
+                        Let's connect.
+                    </h2>
+
+                    <p class="section-description">
+                        Jika ingin terhubung atau mengetahui lebih banyak
+                        tentang saya, silakan melalui salah satu platform berikut.
+                    </p>
+
+
+                    <div class="contact-links">
+
+                        <a
+                            href="#"
+                            class="contact-link"
+                        >
+                            Instagram
+                        </a>
+
+                        <a
+                            href="mailto:your@email.com"
+                            class="contact-link"
+                        >
+                            Email
+                        </a>
+
+                        <a
+                            href="#"
+                            class="contact-link"
+                        >
+                            WhatsApp
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="container footer-content">
+
+            <p>
+                © 2026 Your Name. All rights reserved.
+            </p>
+
+            <p>
+                Personal Portfolio
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- BACK TO TOP -->
+
+    <button
+        class="back-top"
+        id="backTop"
+        aria-label="Back to top"
+    >
+        ↑
+    </button>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* ================================================
+           NAVBAR SCROLL EFFECT
+        ================================================= */
+
+        const header = document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+
+        });
+
+
+        /* ================================================
+           MOBILE MENU
+        ================================================= */
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", () => {
+
+            navLinks.classList.toggle("open");
+
+            if (navLinks.classList.contains("open")) {
+                menuBtn.textContent = "✕";
+            } else {
+                menuBtn.textContent = "☰";
+            }
+
+        });
+
+
+        /* ================================================
+           CLOSE MOBILE MENU AFTER CLICK
+        ================================================= */
+
+        document.querySelectorAll(".nav-links a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                navLinks.classList.remove("open");
+                menuBtn.textContent = "☰";
+
+            });
+
+        });
+
+
+        /* ================================================
+           SCROLL REVEAL
+        ================================================= */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("show");
+
+                        revealObserver.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+
+        /* ================================================
+           ACTIVE NAVIGATION
+        ================================================= */
+
+        const sections =
+            document.querySelectorAll("section[id]");
+
+        const navItems =
+            document.querySelectorAll(".nav-links a");
+
+        window.addEventListener("scroll", () => {
+
+            let currentSection = "";
+
+            sections.forEach(section => {
+
+                const sectionTop =
+                    section.offsetTop - 150;
+
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute("id");
+                }
+
+            });
+
+
+            navItems.forEach(item => {
+
+                item.classList.remove("active");
+
+                if (
+                    item.getAttribute("href") ===
+                    "#" + currentSection
+                ) {
+                    item.classList.add("active");
+                }
+
+            });
+
+        });
+
+
+        /* ================================================
+           BACK TO TOP
+        ================================================= */
+
+        const backTop =
+            document.getElementById("backTop");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 500) {
+
+                backTop.classList.add("show");
+
+            } else {
+
+                backTop.classList.remove("show");
+
+            }
+
+        });
+
+
+        backTop.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+
+        /* ================================================
+           PREVENT EMPTY PROJECT LINKS
+        ================================================= */
+
+        document.querySelectorAll(".project-link").forEach(link => {
+
+            link.addEventListener("click", (event) => {
+
+                if (link.getAttribute("href") === "#") {
+                    event.preventDefault();
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
